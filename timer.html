@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="hours">hours</label>
+    <input type="number" id="hr" value="0" min="0">
+    <label for="mins">mins</label>
+    <input type="number" id="min" value="0" min="0">
+    <label for="secs">secs</label>
+    <input type="number" id="sec" value="0" min="0">
+    <h1 id="innerText">0:0:0</h1>
+    <button id="start" onclick="start()">start</button>
+    <button id="pause" onclick="pause()">pause</button>
+    <button id="reset" onclick="reset()">reset</button>
+</body>
+</html>
+<script>
+    let id;
+let totalsec;
+
+function start() {
+  let h = document.getElementById("hr");
+  let m = document.getElementById("min");
+  let s = document.getElementById("sec");
+  let inText = document.getElementById("innerText");
+  totalsec = Number(h.value) * 3600 + Number(m.value) * 60 + Number(s.value);
+  
+  if (totalsec <= 0) {
+    alert("please enter a valid time");
+  }
+  id = setInterval(() => {
+   if (totalsec<=0)
+   {
+    clearInterval(id)
+   }
+    let hour = Math.floor(Number(totalsec) / 3600);
+  let minutes = Math.floor((Number(totalsec) % 3600) / 60);
+  let seconds1 = Math.floor((Number(totalsec) % 3600) % 60);
+  h.value=hour
+  m.value=minutes
+  s.value=seconds1
+    totalsec = totalsec - 1;
+  }, 1000);
+}
+function pause() {
+  clearInterval(id);
+}
+function reset() {
+  clearInterval(id);
+ 
+  document.getElementById("hr").value=0;
+  document.getElementById("min").value=0;
+  document.getElementById("sec").value=0;
+  
+}
+</script>
